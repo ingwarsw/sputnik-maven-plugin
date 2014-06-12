@@ -50,14 +50,28 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <!-- Java versions -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
         
         <!-- Libraries versions -->
         
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>pl.touk.sputnik</groupId>
+            <artifactId>sputnik</artifactId>
+            <version>1.0</version>
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${basedir}/lib/sputnik.jar</systemPath>-->
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
