@@ -1,0 +1,25 @@
+language: java
+
+jdk:
+  - openjdk6
+  - openjdk7
+  - oraclejdk7
+  - oraclejdk8
+
+env:
+  global:
+    - SONATYPE_USERNAME=ingwar
+    - secure: "Lqi30fOkp2QgSTxLDWlPW1ArSva/mWHW5yjTalw1Pk/v7LTEHA4LfcOEMKJ/RfH3gKvpq0UP90Nb8t4cAooM1AkHKLb/5lOv8eys4Qj3XyeJcmDLJz8Znre0r6SWA8/DFMzugjPu++4ul+CQOFB8/DkCeA3hDVRuI4yHYKVwArM="
+  matrix:
+
+matrix:
+    include:
+        - jdk: oraclejdk7
+          env: "PROFILE=coveralls-coverage SONATYPE_SNAPSHOT=true"
+
+install: travis/travis.py --fetch
+
+script: travis/travis.py --test
+
+after_success: travis/travis.py --deploy
+
