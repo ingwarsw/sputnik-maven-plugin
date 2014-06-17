@@ -54,6 +54,7 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         
         <!-- Libraries versions -->
+        <version.jacoco>0.7.1.201405082137</version.jacoco>
         
     </properties>
 
@@ -203,12 +204,6 @@
         <profile>
             <id>coveralls-coverage</id>
             <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.extension</groupId>
-                    <artifactId>arquillian-jacoco</artifactId>
-                    <version>1.0.0.Alpha6</version>
-                    <scope>test</scope>
-                </dependency>
                 <dependency>
                     <groupId>org.jacoco</groupId>
                     <artifactId>org.jacoco.core</artifactId>
