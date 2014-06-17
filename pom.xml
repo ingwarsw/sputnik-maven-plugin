@@ -62,8 +62,6 @@
             <groupId>pl.touk.sputnik</groupId>
             <artifactId>sputnik</artifactId>
             <version>1.0</version>
-            <!--<scope>system</scope>-->
-            <!--<systemPath>${basedir}/lib/sputnik.jar</systemPath>-->
         </dependency>
         
         <dependency>

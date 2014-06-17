@@ -15,10 +15,11 @@
  */
 package org.eu.ingwar.maven.sputnik;
 
-import java.util.Properties;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import pl.touk.sputnik.Connectors;
+import pl.touk.sputnik.connector.stash.StashOption;
 
 /**
  * Mojo class for stash connector.
@@ -54,19 +55,17 @@ public class StashConnectorMojo extends SputnikAbstractMojo {
     private String stashRepositorySlug;
 
     @Override
-    protected String getConnector() {
-        return "stash";
+    protected Connectors getConnector() {
+        return Connectors.STASH;
     }
-    
     @Override
-    protected void setConnectorProperties(Properties sputnikProperties) {
-        sputnikProperties.setProperty("stash.host", stashHost);
-        sputnikProperties.setProperty("stash.port", stashPort);
-        sputnikProperties.setProperty("stash.useHttps", stashUseHttps);
-        sputnikProperties.setProperty("stash.username", stashUsername);
-        sputnikProperties.setProperty("stash.password", stashPassword);
-        sputnikProperties.setProperty("stash.projectKey", stashProjectKey);
-        sputnikProperties.setProperty("stash.repositorySlug", stashRepositorySlug);
+    protected void setConnectorProperties() {
+        setConnectorProperty(StashOption.HOST, stashHost);
+        setConnectorProperty(StashOption.PORT, stashPort);
+        setConnectorProperty(StashOption.USE_HTTPS, stashUseHttps);
+        setConnectorProperty(StashOption.USERNAME, stashUsername);
+        setConnectorProperty(StashOption.PASSWORD, stashPassword);
+        setConnectorProperty(StashOption.PROJECT_KEY, stashProjectKey);
+        setConnectorProperty(StashOption.REPOSITORY_SLUG, stashRepositorySlug);
     }
-
 }

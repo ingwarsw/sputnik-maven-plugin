@@ -20,7 +20,12 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
-import pl.touk.sputnik.configuration.Configuration;
+import pl.touk.sputnik.Connectors;
+import pl.touk.sputnik.configuration.CliOption;
+import pl.touk.sputnik.configuration.ConfigurationHolder;
+import pl.touk.sputnik.configuration.ConfigurationOption;
+import pl.touk.sputnik.connector.ConnectorFacade;
+import pl.touk.sputnik.connector.ConnectorFacadeFactory;
 import pl.touk.sputnik.review.Engine;
 
 /**
@@ -44,20 +49,24 @@ public abstract class SputnikAbstractMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
 
-        sputnikProperties.setProperty("cli.connector", getConnector());
-        sputnikProperties.setProperty("cli.pullRequestId", pullRequestId);
-
+        setConnectorProperty(CliOption.CONNECTOR, getConnector().name());
+        setConnectorProperty(CliOption.PULL_REQUEST_ID, pullRequestId);
+        
         sputnikProperties.setProperty("checkstyle.enabled", checkstyleEnabled);
         sputnikProperties.setProperty("checkstyle.configurationFile", checkstyleConfigurationFile);
 
-        setConnectorProperties(sputnikProperties);
+        setConnectorProperties();
         
-        Configuration conf = Configuration.instance();
-        conf.setProperties(sputnikProperties);
-        new Engine().run();
+        ConfigurationHolder.initFromProperties(sputnikProperties);
+        ConnectorFacade facade = ConnectorFacadeFactory.INSTANCE.build(ConfigurationHolder.instance().getProperty(CliOption.CONNECTOR));
+        new Engine(facade).run();
 
     }
+    
+    protected void setConnectorProperty(ConfigurationOption opt, String value) {
+        sputnikProperties.setProperty(opt.getKey(), value);
+    }
 
-    protected abstract String getConnector();
-    protected abstract void setConnectorProperties(Properties sputnikProperties);
+    protected abstract Connectors getConnector();
+    protected abstract void setConnectorProperties();
 }
