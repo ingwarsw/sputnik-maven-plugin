@@ -24,6 +24,7 @@ import pl.touk.sputnik.Connectors;
 import pl.touk.sputnik.configuration.CliOption;
 import pl.touk.sputnik.configuration.ConfigurationHolder;
 import pl.touk.sputnik.configuration.ConfigurationOption;
+import pl.touk.sputnik.configuration.GeneralOption;
 import pl.touk.sputnik.connector.ConnectorFacade;
 import pl.touk.sputnik.connector.ConnectorFacadeFactory;
 import pl.touk.sputnik.review.Engine;
@@ -35,27 +36,62 @@ import pl.touk.sputnik.review.Engine;
  */
 public abstract class SputnikAbstractMojo extends AbstractMojo {
 
-    @Parameter(property = "sputnik.pullRequestId", required = true)
-    private String pullRequestId;
+    @Parameter(property = "sputnik.global.processTestFiles")
+    private String processTestFiles;
     
-    @Parameter(property = "sputnik.checkstyle.enabled", defaultValue = "true")
+    @Parameter(property = "sputnik.global.maxNumberOfComments")
+    private String maxNumberOfComments;
+
+    @Parameter(property = "sputnik.checkstyle.enabled")
     private String checkstyleEnabled;
     
     @Parameter(property = "sputnik.checkstyle.configurationFile")
     private String checkstyleConfigurationFile;
     
+    @Parameter(property = "sputnik.pmd.enabled")
+    private String pmdEnabled;
+
+    @Parameter(property = "sputnik.pmd.pmdRulesets")
+    private String pmdRulesets;
+
+    @Parameter(property = "sputnik.findbugs.enabled")
+    private String findbugsEnabled;
+
+    @Parameter(property = "sputnik.findbugs.includeFilter")
+    private String findbugsIncludeFilter;
+
+    @Parameter(property = "sputnik.findbugs.excludeFilter")
+    private String findbugsExcludeFilter;
+
+    @Parameter(property = "sputnik.scalastyle.enabled")
+    private String scalastyleEnabled;
+
+    @Parameter(property = "sputnik.scalastyle.configurationFile")
+    private String scalastyleConfigurationFile;
+
+
     private Properties sputnikProperties = new Properties();
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
 
-        setConnectorProperty(CliOption.CONNECTOR, getConnector().name());
-        setConnectorProperty(CliOption.PULL_REQUEST_ID, pullRequestId);
+        setConnectorProperty(CliOption.CONNECTOR, getConnector().name().toLowerCase());
         
-        sputnikProperties.setProperty("checkstyle.enabled", checkstyleEnabled);
-        sputnikProperties.setProperty("checkstyle.configurationFile", checkstyleConfigurationFile);
+        setConnectorProperty(GeneralOption.PROCESS_TEST_FILES, processTestFiles);
+        setConnectorProperty(GeneralOption.MAX_NUMBER_OF_COMMENTS, maxNumberOfComments);
 
+        setConnectorProperty(GeneralOption.CHECKSTYLE_ENABLED, checkstyleEnabled);
+        setConnectorProperty(GeneralOption.CHECKSTYLE_CONFIGURATION_FILE, checkstyleConfigurationFile);
+
+        setConnectorProperty(GeneralOption.PMD_ENABLED, pmdEnabled);
+        setConnectorProperty(GeneralOption.PMD_RULESETS, pmdRulesets);
+
+        setConnectorProperty(GeneralOption.FINDBUGS_ENABLED, findbugsEnabled);
+        setConnectorProperty(GeneralOption.FINDBUGS_EXCLUDE_FILTER, findbugsExcludeFilter);
+        setConnectorProperty(GeneralOption.FINDBUGS_INCLUDE_FILTER, findbugsIncludeFilter);
         setConnectorProperties();
+        setConnectorProperty(GeneralOption.SCALASTYLE_ENABLED, scalastyleEnabled);
+        setConnectorProperty(GeneralOption.SCALASTYLE_CONFIGURATION_FILE, scalastyleConfigurationFile);
         
         ConfigurationHolder.initFromProperties(sputnikProperties);
         ConnectorFacade facade = ConnectorFacadeFactory.INSTANCE.build(ConfigurationHolder.instance().getProperty(CliOption.CONNECTOR));

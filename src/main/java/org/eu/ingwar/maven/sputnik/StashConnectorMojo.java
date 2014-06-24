@@ -19,27 +19,30 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import pl.touk.sputnik.Connectors;
+import pl.touk.sputnik.configuration.CliOption;
 import pl.touk.sputnik.connector.stash.StashOption;
 
 /**
  * Mojo class for stash connector.
- * 
+ *
  * @author Karol Lassak 'Ingwar'
  */
 @Mojo(name = "stash",
         defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST,
         threadSafe = true,
-        aggregator = true
-        )
+        aggregator = true)
 public class StashConnectorMojo extends SputnikAbstractMojo {
+    @Parameter(property = "sputnik.pullRequestId", required = true)
+    private String pullRequestId;
+
 
     @Parameter(property = "sputnik.stash.host")
     private String stashHost;
     
-    @Parameter(property = "sputnik.stash.port", defaultValue = "80")
+    @Parameter(property = "sputnik.stash.port")
     private String stashPort;
     
-    @Parameter(property = "sputnik.stash.useHttps", defaultValue = "false")
+    @Parameter(property = "sputnik.stash.useHttps")
     private String stashUseHttps;
     
     @Parameter(property = "sputnik.stash.username")
@@ -58,8 +61,11 @@ public class StashConnectorMojo extends SputnikAbstractMojo {
     protected Connectors getConnector() {
         return Connectors.STASH;
     }
+
     @Override
     protected void setConnectorProperties() {
+        setConnectorProperty(CliOption.PULL_REQUEST_ID, pullRequestId);
+
         setConnectorProperty(StashOption.HOST, stashHost);
         setConnectorProperty(StashOption.PORT, stashPort);
         setConnectorProperty(StashOption.USE_HTTPS, stashUseHttps);
