@@ -89,10 +89,12 @@ public abstract class SputnikAbstractMojo extends AbstractMojo {
         setConnectorProperty(GeneralOption.FINDBUGS_ENABLED, findbugsEnabled);
         setConnectorProperty(GeneralOption.FINDBUGS_EXCLUDE_FILTER, findbugsExcludeFilter);
         setConnectorProperty(GeneralOption.FINDBUGS_INCLUDE_FILTER, findbugsIncludeFilter);
-        setConnectorProperties();
+
         setConnectorProperty(GeneralOption.SCALASTYLE_ENABLED, scalastyleEnabled);
         setConnectorProperty(GeneralOption.SCALASTYLE_CONFIGURATION_FILE, scalastyleConfigurationFile);
         
+        setConnectorProperties();
+
         ConfigurationHolder.initFromProperties(sputnikProperties);
         ConnectorFacade facade = ConnectorFacadeFactory.INSTANCE.build(ConfigurationHolder.instance().getProperty(CliOption.CONNECTOR));
         new Engine(facade).run();
@@ -100,7 +102,9 @@ public abstract class SputnikAbstractMojo extends AbstractMojo {
     }
     
     protected void setConnectorProperty(ConfigurationOption opt, String value) {
-        sputnikProperties.setProperty(opt.getKey(), value);
+        if (value != null) {
+            sputnikProperties.setProperty(opt.getKey(), value);
+        }
     }
 
     protected abstract Connectors getConnector();
