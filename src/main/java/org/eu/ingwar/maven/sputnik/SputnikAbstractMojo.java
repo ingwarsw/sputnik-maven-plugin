@@ -21,7 +21,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 import pl.touk.sputnik.Connectors;
-import pl.touk.sputnik.configuration.CliOption;
 import pl.touk.sputnik.configuration.ConfigurationHolder;
 import pl.touk.sputnik.configuration.ConfigurationOption;
 import pl.touk.sputnik.configuration.GeneralOption;
@@ -36,12 +35,27 @@ import pl.touk.sputnik.review.Engine;
  */
 public abstract class SputnikAbstractMojo extends AbstractMojo {
 
+    @Parameter(property = "sputnik.connector.host")
+    private String connectorHost;
+    
+    @Parameter(property = "sputnik.connector.port")
+    private String connectorPort;
+    
+    @Parameter(property = "sputnik.connector.useHttps")
+    private String connectorUseHttps;
+    
+    @Parameter(property = "sputnik.connector.username")
+    private String connectorUsername2;
+
+    @Parameter(property = "sputnik.connector.password")
+    private String connectorPassword;
+    
     @Parameter(property = "sputnik.global.processTestFiles")
     private String processTestFiles;
     
     @Parameter(property = "sputnik.global.maxNumberOfComments")
     private String maxNumberOfComments;
-
+    
     @Parameter(property = "sputnik.checkstyle.enabled")
     private String checkstyleEnabled;
     
@@ -75,7 +89,13 @@ public abstract class SputnikAbstractMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
 
-        setConnectorProperty(CliOption.CONNECTOR, getConnector().name().toLowerCase());
+        setConnectorProperty(GeneralOption.CONNECTOR_TYPE, getConnector().name().toLowerCase());
+
+        setConnectorProperty(GeneralOption.HOST, connectorHost);
+        setConnectorProperty(GeneralOption.PORT, connectorPort);
+        setConnectorProperty(GeneralOption.USE_HTTPS, connectorUseHttps);
+        setConnectorProperty(GeneralOption.USERNAME, connectorUsername2);
+        setConnectorProperty(GeneralOption.PASSWORD, connectorPassword);
         
         setConnectorProperty(GeneralOption.PROCESS_TEST_FILES, processTestFiles);
         setConnectorProperty(GeneralOption.MAX_NUMBER_OF_COMMENTS, maxNumberOfComments);
@@ -96,7 +116,7 @@ public abstract class SputnikAbstractMojo extends AbstractMojo {
         setConnectorProperties();
 
         ConfigurationHolder.initFromProperties(sputnikProperties);
-        ConnectorFacade facade = ConnectorFacadeFactory.INSTANCE.build(ConfigurationHolder.instance().getProperty(CliOption.CONNECTOR));
+        ConnectorFacade facade = ConnectorFacadeFactory.INSTANCE.build(ConfigurationHolder.instance().getProperty(GeneralOption.CONNECTOR_TYPE));
         new Engine(facade).run();
 
     }

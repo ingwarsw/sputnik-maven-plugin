@@ -20,14 +20,14 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import pl.touk.sputnik.Connectors;
 import pl.touk.sputnik.configuration.CliOption;
-import pl.touk.sputnik.connector.stash.StashOption;
+import pl.touk.sputnik.configuration.GeneralOption;
 
 /**
- * Mojo class for stash connector.
+ * Mojo class for connector connector.
  *
  * @author Karol Lassak 'Ingwar'
  */
-@Mojo(name = "stash",
+@Mojo(name = "connector",
         defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST,
         threadSafe = true,
         aggregator = true)
@@ -35,27 +35,11 @@ public class StashConnectorMojo extends SputnikAbstractMojo {
     @Parameter(property = "sputnik.pullRequestId", required = true)
     private String pullRequestId;
 
+    @Parameter(property = "sputnik.connector.projectKey", required = true)
+    private String connectorProjectKey;
 
-    @Parameter(property = "sputnik.stash.host")
-    private String stashHost;
-    
-    @Parameter(property = "sputnik.stash.port")
-    private String stashPort;
-    
-    @Parameter(property = "sputnik.stash.useHttps")
-    private String stashUseHttps;
-    
-    @Parameter(property = "sputnik.stash.username")
-    private String stashUsername;
-
-    @Parameter(property = "sputnik.stash.password")
-    private String stashPassword;
-
-    @Parameter(property = "sputnik.stash.projectKey")
-    private String stashProjectKey;
-
-    @Parameter(property = "sputnik.stash.repositorySlug")
-    private String stashRepositorySlug;
+    @Parameter(property = "sputnik.connector.repositorySlug", required = true)
+    private String connectorRepositorySlug;
 
     @Override
     protected Connectors getConnector() {
@@ -66,12 +50,7 @@ public class StashConnectorMojo extends SputnikAbstractMojo {
     protected void setConnectorProperties() {
         setConnectorProperty(CliOption.PULL_REQUEST_ID, pullRequestId);
 
-        setConnectorProperty(StashOption.HOST, stashHost);
-        setConnectorProperty(StashOption.PORT, stashPort);
-        setConnectorProperty(StashOption.USE_HTTPS, stashUseHttps);
-        setConnectorProperty(StashOption.USERNAME, stashUsername);
-        setConnectorProperty(StashOption.PASSWORD, stashPassword);
-        setConnectorProperty(StashOption.PROJECT_KEY, stashProjectKey);
-        setConnectorProperty(StashOption.REPOSITORY_SLUG, stashRepositorySlug);
+        setConnectorProperty(GeneralOption.PROJECT_KEY, connectorProjectKey);
+        setConnectorProperty(GeneralOption.REPOSITORY_SLUG, connectorRepositorySlug);
     }
 }

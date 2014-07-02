@@ -20,7 +20,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import pl.touk.sputnik.Connectors;
 import pl.touk.sputnik.configuration.CliOption;
-import pl.touk.sputnik.connector.gerrit.GerritOption;
 
 /**
  * Mojo class for gerrit connector.
@@ -38,36 +37,14 @@ public class GerritConnectorMojo extends SputnikAbstractMojo {
     @Parameter(property = "sputnik.revisionId", required = true)
     private String revisionId;
 
-
-    @Parameter(property = "sputnik.gerrit.host")
-    private String gerritHost;
-
-    @Parameter(property = "sputnik.gerrit.port")
-    private String gerritPort;
-
-    @Parameter(property = "sputnik.gerrit.useHttps")
-    private String gerritUseHttps;
-
-    @Parameter(property = "sputnik.gerrit.username")
-    private String gerritUsername;
-
-    @Parameter(property = "sputnik.gerrit.password")
-    private String gerritPassword;
-
     @Override
     protected Connectors getConnector() {
-        return Connectors.STASH;
+        return Connectors.GERRIT;
     }
 
     @Override
     protected void setConnectorProperties() {
         setConnectorProperty(CliOption.CHANGE_ID, changeId);
         setConnectorProperty(CliOption.REVISION_ID, revisionId);
-
-        setConnectorProperty(GerritOption.HOST, gerritHost);
-        setConnectorProperty(GerritOption.PORT, gerritPort);
-        setConnectorProperty(GerritOption.USE_HTTPS, gerritUseHttps);
-        setConnectorProperty(GerritOption.USERNAME, gerritUsername);
-        setConnectorProperty(GerritOption.PASSWORD, gerritPassword);
     }
 }
