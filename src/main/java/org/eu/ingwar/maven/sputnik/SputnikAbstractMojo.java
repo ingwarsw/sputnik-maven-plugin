@@ -45,7 +45,7 @@ public abstract class SputnikAbstractMojo extends AbstractMojo {
     private String connectorUseHttps;
     
     @Parameter(property = "sputnik.connector.username")
-    private String connectorUsername2;
+    private String connectorUsername;
 
     @Parameter(property = "sputnik.connector.password")
     private String connectorPassword;
@@ -55,6 +55,9 @@ public abstract class SputnikAbstractMojo extends AbstractMojo {
     
     @Parameter(property = "sputnik.global.maxNumberOfComments")
     private String maxNumberOfComments;
+    
+    @Parameter(property = "sputnik.global.commentOnlyChangedLines")
+    private String commentOnlyChangedLines;
     
     @Parameter(property = "sputnik.checkstyle.enabled")
     private String checkstyleEnabled;
@@ -94,11 +97,12 @@ public abstract class SputnikAbstractMojo extends AbstractMojo {
         setConnectorProperty(GeneralOption.HOST, connectorHost);
         setConnectorProperty(GeneralOption.PORT, connectorPort);
         setConnectorProperty(GeneralOption.USE_HTTPS, connectorUseHttps);
-        setConnectorProperty(GeneralOption.USERNAME, connectorUsername2);
+        setConnectorProperty(GeneralOption.USERNAME, connectorUsername);
         setConnectorProperty(GeneralOption.PASSWORD, connectorPassword);
         
         setConnectorProperty(GeneralOption.PROCESS_TEST_FILES, processTestFiles);
         setConnectorProperty(GeneralOption.MAX_NUMBER_OF_COMMENTS, maxNumberOfComments);
+        setConnectorProperty(GeneralOption.COMMENT_ONLY_CHANGED_LINES, commentOnlyChangedLines);
 
         setConnectorProperty(GeneralOption.CHECKSTYLE_ENABLED, checkstyleEnabled);
         setConnectorProperty(GeneralOption.CHECKSTYLE_CONFIGURATION_FILE, checkstyleConfigurationFile);

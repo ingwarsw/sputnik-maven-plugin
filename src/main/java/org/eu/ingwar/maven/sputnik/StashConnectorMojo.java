@@ -27,7 +27,7 @@ import pl.touk.sputnik.configuration.GeneralOption;
  *
  * @author Karol Lassak 'Ingwar'
  */
-@Mojo(name = "connector",
+@Mojo(name = "stash",
         defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST,
         threadSafe = true,
         aggregator = true)
