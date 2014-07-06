@@ -60,7 +60,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>pl.touk.sputnik</groupId>
+            <groupId>pl.touk</groupId>
             <artifactId>sputnik</artifactId>
             <version>1.2.0</version>
         </dependency>
