@@ -11,7 +11,7 @@
 
     <groupId>org.eu.ingwar.maven</groupId>
     <artifactId>sputnik-maven-plugin</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.2.0</version>
     <packaging>maven-plugin</packaging>
     <name>Sputnik Maven Plugin</name>
     <inceptionYear>2014</inceptionYear>
@@ -62,7 +62,7 @@
         <dependency>
             <groupId>pl.touk.sputnik</groupId>
             <artifactId>sputnik</artifactId>
-            <version>1.1.0.5</version>
+            <version>1.2.0</version>
         </dependency>
         
         <dependency>
