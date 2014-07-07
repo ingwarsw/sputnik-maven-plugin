@@ -11,7 +11,7 @@
 
     <groupId>org.eu.ingwar.maven</groupId>
     <artifactId>sputnik-maven-plugin</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>Sputnik Maven Plugin</name>
     <inceptionYear>2014</inceptionYear>
