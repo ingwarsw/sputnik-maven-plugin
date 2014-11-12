@@ -16,7 +16,7 @@ https://github.com/TouK/sputnik
     <plugin>
         <groupId>org.eu.ingwar.maven</groupId>
         <artifactId>sputnik-maven-plugin</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.2.1-SNAPSHO</version>
         <executions>
             <execution>
                 <id>sputnik-default</id>
@@ -46,7 +46,7 @@ https://github.com/TouK/sputnik
     <plugin>
         <groupId>org.eu.ingwar.maven</groupId>
         <artifactId>sputnik-maven-plugin</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.2.1-SNAPSHO</version>
         <executions>
             <execution>
                 <id>sputnik-default</id>
@@ -101,7 +101,7 @@ https://github.com/TouK/sputnik
                     <plugin>
                         <groupId>org.eu.ingwar.maven</groupId>
                         <artifactId>sputnik-maven-plugin</artifactId>
-                        <version>0.0.1-SNAPSHOT</version>
+                        <version>1.2.1-SNAPSHO</version>
                         <executions>
                             <execution>
                                 <id>sputnik-default</id>
