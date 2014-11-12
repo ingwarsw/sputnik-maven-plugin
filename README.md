@@ -11,6 +11,8 @@ https://github.com/TouK/sputnik
 
 # Basic usage
 
+## Stash
+
     <plugin>
         <groupId>org.eu.ingwar.maven</groupId>
         <artifactId>sputnik-maven-plugin</artifactId>
@@ -24,18 +26,49 @@ https://github.com/TouK/sputnik
             </execution>
         </executions>
         <configuration>
+            <!-- stash specific options -->
+            <pullRequestId>123</pullRequestId>
+            <connectorProjectKey>project</connectorProjectKey>
+            <connectorRepositorySlug>slug</connectorRepositorySlug>
+            
+            <!-- global options -->
             <checkstyleEnabled>true</checkstyleEnabled>
             <checkstyleConfigurationFile>checkstyle_file.xml</checkstyleConfigurationFile>
                             
-            <stashHost>stash.server.addr</stashHost>
-            <stashUsername>user</stashUsername>
-            <stashPassword>pass</stashPassword>
-            <stashProjectKey>project</stashProjectKey>
-            <stashRepositorySlug>slug</stashRepositorySlug>
+            <connectorHost>stash.server.addr</connectorHost>
+            <connectorUsername>user</connectorUsername>
+            <connectorPassword>pass</connectorPassword>
         </configuration>
     </plugin>
 
+## Gerrit
 
+    <plugin>
+        <groupId>org.eu.ingwar.maven</groupId>
+        <artifactId>sputnik-maven-plugin</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <executions>
+            <execution>
+                <id>sputnik-default</id>
+                <goals>
+                    <goal>gerrit</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <!-- gerrit specific options -->
+            <changeId>123</changeId>
+            <revisionId>project</revisionId>
+
+            <!-- global options -->
+            <checkstyleEnabled>true</checkstyleEnabled>
+            <checkstyleConfigurationFile>checkstyle_file.xml</checkstyleConfigurationFile>
+                            
+            <connectorHost>stash.server.addr</connectorHost>
+            <connectorUsername>user</connectorUsername>
+            <connectorPassword>pass</connectorPassword>
+        </configuration>
+    </plugin>
 
 # Extended usage
 
@@ -78,14 +111,17 @@ https://github.com/TouK/sputnik
                             </execution>
                         </executions>
                         <configuration>
+                            <!-- stash specific options -->
+                            <connectorProjectKey>project</connectorProjectKey>
+                            <connectorRepositorySlug>slug</connectorRepositorySlug>
+                            
+                            <!-- global options -->
                             <checkstyleEnabled>true</checkstyleEnabled>
                             <checkstyleConfigurationFile>checkstyle_file.xml</checkstyleConfigurationFile>
-                            
-                            <stashHost>stash.server.addr</stashHost>
-                            <stashUsername>user</stashUsername>
-                            <stashPassword>pass</stashPassword>
-                            <stashProjectKey>project</stashProjectKey>
-                            <stashRepositorySlug>slug</stashRepositorySlug>
+                                            
+                            <connectorHost>stash.server.addr</connectorHost>
+                            <connectorUsername>user</connectorUsername>
+                            <connectorPassword>pass</connectorPassword>
                         </configuration>
                     </plugin>
                 </plugins>
